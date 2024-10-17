@@ -2,6 +2,13 @@ package class02;
 
 public class Code02_PackingMachine {
 
+	/**
+	 * 每次移动所有的机器都可以同时进行操作，进行获取的移动次数最少
+	 * 以i为当前位置
+	 * 左侧的需要移动的数量为a，右侧移动的数量为b
+	 * a，b都大于0的时候，取最大值
+	 * 当a，b都小于0的时候，说明需要从i位置分别向左右两遍进行移动，这个时候总的移动次数为 a，b绝对值的和
+	 */
 	public static int MinOps(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;

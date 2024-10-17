@@ -2,6 +2,9 @@ package class02;
 
 public class Code01_FindNumInSortedMatrix {
 
+	/**
+	 * 从左下角开始走，或 从右上角开始走，只有这两个点能使用到有序的性质
+	 */
 	public static boolean isContains(int[][] matrix, int K) {
 		int row = 0;
 		int col = matrix[0].length - 1;
