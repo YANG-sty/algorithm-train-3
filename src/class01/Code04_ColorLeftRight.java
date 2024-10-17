@@ -2,6 +2,17 @@ package class01;
 
 public class Code04_ColorLeftRight {
 
+	/**
+	 * 枚举分界线，分别对左右两边进行涂色操作，每个位置都这样枚举，求最小值
+	 * 辅助数组L记录从左向右的G的个数 （可以省略，分界线遍历的时候能确定左侧出现了多少次G）
+	 * 辅助数组R记录从右向左的R的个数 （可以省略，遍历数组获取R的总个数，在后续分界线遍历的时候对减去已经出现的R的个数就是右侧R的个数）
+	 * 因为左侧的要把G变为R， 右侧要把R变为G
+	 */
+	/**
+	 * 方式
+	 * @param s
+	 * @return
+	 */
 	// RGRGR -> RRRGG
 	public static int minPaint(String s) {
 		if (s == null || s.length() < 2) {

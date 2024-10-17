@@ -1,6 +1,13 @@
 package class01;
 
 public class Code05_MaxOneBorderSize {
+	/**
+	 * 边框都是1的最大正方形
+	 * N*N
+	 * 长方形个数 O(N^4)
+	 * 正方形个数 O(N^3)
+	 * 引入2个数组，right[i][j]表示从(i,j)往右，有多少个连续1，down[i][j]表示从(i,j)往下，有多少个连续1
+	 */
 
 	public static void setBorderMap(int[][] m, int[][] right, int[][] down) {
 		int r = m.length;
@@ -45,11 +52,13 @@ public class Code05_MaxOneBorderSize {
 	}
 
 	public static boolean hasSizeOfBorder(int size, int[][] right, int[][] down) {
-		for (int i = 0; i != right.length - size + 1; i++) {
-			for (int j = 0; j != right[0].length - size + 1; j++) {
-				if (right[i][j] >= size && down[i][j] >= size
-						&& right[i + size - 1][j] >= size
-						&& down[i][j + size - 1] >= size) {
+		//要组成矩形，点不能都在一个位置
+		for (int i = 0; i != right.length - size + 1; i++) { // 行
+			for (int j = 0; j != right[0].length - size + 1; j++) { // 列
+				if (right[i][j] >= size //当前点，右边有连续1的个数
+						&& down[i][j] >= size //当前点，下边连续1的根数
+						&& right[i + size - 1][j] >= size //左下点，右边连续1的个数
+						&& down[i][j + size - 1] >= size) { //右上点，下边连续1的个数
 					return true;
 				}
 			}

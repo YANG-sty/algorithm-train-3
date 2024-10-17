@@ -3,6 +3,9 @@ package class01;
 import java.util.Arrays;
 
 public class Code01_CordCoverMaxPoint {
+	/**
+	 * 单调性，二分法/滑动窗口
+	 */
 
 	public static int maxPoint1(int[] arr, int L) {
 		int res = 1;

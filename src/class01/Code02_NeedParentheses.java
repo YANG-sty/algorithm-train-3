@@ -1,6 +1,10 @@
 package class01;
 
 public class Code02_NeedParentheses {
+	/**
+	 * 括号匹配
+	 * 使用变量count 来记录当前括号的数量，如果count < 0，说明括号不匹配，直接返回false
+	 */
 
 	public static boolean valid(String s) {
 		char[] str = s.toCharArray();

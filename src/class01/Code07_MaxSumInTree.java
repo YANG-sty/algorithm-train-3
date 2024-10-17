@@ -2,6 +2,11 @@ package class01;
 
 public class Code07_MaxSumInTree {
 
+	/**
+	 * 二叉树递归套路，一个节点会访问3次
+	 *
+	 */
+
 	public static class Node {
 		public int value;
 		public Node left;
@@ -75,6 +80,10 @@ public class Code07_MaxSumInTree {
 
 	// 1）X无关的时候， 1， 左树上的整体最大路径和 2， 右树上的整体最大路径和
 	// 2) X有关的时候 3， x自己 4， x往左走 5，x往右走
+
+	/**
+	 * 任何节点出发向下走到达任意节点，最大路径和，返回
+	 */
 	public static Info f2(Node x) {
 		if (x == null) {
 			return null;
@@ -105,6 +114,10 @@ public class Code07_MaxSumInTree {
 
 	// 1）X无关的时候， 1， 左树上的整体最大路径和 2， 右树上的整体最大路径和
 	// 2) X有关的时候 3， x自己 4， x往左走 5，x往右走 6, 既往左，又往右
+
+	/**
+	 * 从任意节点出发到任何节点，最大路径和，返回
+	 */
 	public static Info f3(Node x) {
 		if (x == null) {
 			return null;
@@ -141,6 +154,9 @@ public class Code07_MaxSumInTree {
 
 	public static int max = Integer.MIN_VALUE;
 
+	/**
+	 * 任意节点出发，必须到叶结点，最大路径和，返回
+	 */
 	public static int bigShuai(Node head) {
 		if (head.left == null && head.right == null) {
 			max = Math.max(max, head.value);

@@ -4,6 +4,14 @@ public class Code06_MakeNo {
 	
 	// 生成长度为size的达标数组
 	// 达标：对于任意的 i<k<j，满足   [i] + [j]  != [k] * 2
+
+	/**
+	 * 分治思想
+	 * a,b,c => 2a-1,2b-1,2c-1, 2a,2b,2c
+	 *
+	 * 时间复杂度 O(N)
+	 *
+	 */
 	public static int[] makeNo(int size) {
 		if (size == 1) {
 			return new int[] { 1 };
@@ -48,17 +56,22 @@ public class Code06_MakeNo {
 
 	public static void main(String[] args) {
 		System.out.println("test begin");
-		for (int N = 1; N < 1000; N++) {
-			int[] arr = makeNo(N);
-			if (!isValid(arr)) {
-				System.out.println("Oops!");
-			}
-		}
+//		for (int N = 1; N < 1000; N++) {
+//			int[] arr = makeNo(N);
+//			if (!isValid(arr)) {
+//				System.out.println("Oops!");
+//			}
+//		}
 		System.out.println("test end");
 		
-		System.out.println(isValid(makeNo(1042)));
-		System.out.println(isValid(makeNo(2981)));
-		
+//		System.out.println(isValid(makeNo(1042)));
+//		System.out.println(isValid(makeNo(2981)));
+		int[] ints = makeNo(2);
+		for (int anInt : ints) {
+			System.out.println(anInt);
+		}
+
+
 
 	}
 
