@@ -12,6 +12,11 @@ public class Code01_DeleteMinCost {
 	// 比如 s1 = "abcde"，s2 = "axbc"
 	// 返回 1
 
+	/**
+	 * 子串，连续
+	 * 子序列，不连续
+	 */
+
 	// 解法一，来自群里的解法：
 	// 求出str2所有的子序列，然后按照长度排序，长度大的排在前面。
 	// 然后考察哪个子序列字符串和s1的某个子串相等(KMP)，答案就出来了。
@@ -53,6 +58,12 @@ public class Code01_DeleteMinCost {
 	// 生成所有s1的子串
 	// 然后考察每个子串和s2的编辑距离(假设编辑距离只有删除动作且删除一个字符的代价为1)
 	// 如果s1的长度较小，s2长度较大，这个方法比较合适
+
+	/**
+	 * 子串 N^2 个
+	 * dp数组 N*M
+	 * 时间复杂度 O(N^3 * M)
+	 */
 	public static int minCost2(String s1, String s2) {
 		if (s1.length() == 0 || s2.length() == 0) {
 			return s2.length();
@@ -107,6 +118,14 @@ public class Code01_DeleteMinCost {
 	}
 
 	// 解法二的优化
+
+	/**
+	 * 子串优化
+	 * s1 的子串 0~1
+	 * // TODO 待处理，循环逻辑复杂
+	 *
+	 * 时间复杂度 O(N^2 * M)
+	 */
 	public static int minCost3(String s1, String s2) {
 		if (s1.length() == 0 || s2.length() == 0) {
 			return s2.length();
@@ -118,19 +137,58 @@ public class Code01_DeleteMinCost {
 		int[][] dp = new int[M][N];
 		int ans = M;
 		for (int start = 0; start < N; start++) { // 开始的列数
+			//第一个字符相等，说明str2, 0到0位置的字符 变为 start位置的字符不用进行删除
+			//不相等说明无法通过删除操作变为start位置的字符，所以这里取值为M表示没有结果
 			dp[0][start] = str2[0] == str1[start] ? 0 : M;
+			//操作start列，从1开始向下的所有行
 			for (int row = 1; row < M; row++) {
-				dp[row][start] = (str2[row] == str1[start] || dp[row - 1][start] != M) ? row : M;
+				//row位置字符 == start位置字符，说明可以删除 row个字符，因为row是从0开始的
+				//row位置字符 != start位置字符 && (row-1, start) 位置不为M，
+				// 表示前面出现过和 start位置相同的字符，0到row行的字符串变为start位置的字符需要删除的字符数也是row
+				dp[row][start] =
+						(str2[row] == str1[start] || dp[row - 1][start] != M) ? row : M;
 			}
+			//dp[M - 1][start]， str1字符串只有start位置的字符时，str2变为str1子串 需要删除字符的个数
+			//只有start列也是一个解
 			ans = Math.min(ans, dp[M - 1][start]);
 			// 以上已经把start列，填好
 			// 以下要把dp[...][start+1....N-1]的信息填好
 			// start...end end - start +2
+			/**
+			 * start 相当于开始位置，N是str1的结束位置
+			 *
+			 * start -> N
+			 *
+			 * 0～N 列 （0开头的所有子串）
+			 * 		行等于 1～M
+			 * 1~N 列 （1开头的所有子串）
+			 * 		行等于 1～M
+			 * 2~N 列  （2开始的所有子串）
+			 * 		行等于 1～M
+			 * 3~N 列  （3开始的所有子串）
+			 * 		行等于 1～M
+			 * .....
+			 */
+			//M是str2的长度，删除字符串的上度不能超过str2的长度
+			// end - start 表示存在 end-start + 1 个字符，表示的是str1其中的一个子串
+			//当子串的长度 超过 str2 总长度M的时候，str2无法通过删除的方式变为当前的子串
+			// end - start + 1 <= M
+			// 						==> end -start <= M-1
+			// 						==> end - start < M
+			//for循环表示的是，start 到 end 整体表示str1的一个子串
 			for (int end = start + 1; end < N && end - start < M; end++) {
-				// 0... first-1 行 不用管
-				int first = end - start;
-				dp[first][end] = (str2[first] == str1[end] && dp[first - 1][end - 1] == 0) ? 0 : M;
-				for (int row = first + 1; row < M; row++) {
+				// 0... optRow-1 行 不用管，
+				// 要想str2 通过删除的方式变为 str1（start， end）这段子串，str2的长度要和str1（start， end）这段子串长度相同
+				//因为是从0开始的，所以，optRow = end - start
+				int optRow = end - start;
+				//计算first位置的值
+				//end表示的是s1子串的结尾，当前情况下s1子串的长度为 start 到 end
+				// 要想s2通过删除操作 变为 s1（start到end的子串），s2最小的长度要和s1（start到end）子串的长度相同
+				// optRow这里表示的是下标， end -start就是行进行对比的最小下标
+				// dp[optRow - 1][end - 1] == 0 判断前s1，s2前一个字符是否相等，只有相等的情况，s2才能编辑为s1当前的子串
+				dp[optRow][end] = (str2[optRow] == str1[end] && dp[optRow - 1][end - 1] == 0) ? 0 : M;
+				//计算first向下的所有的值，继续填充列
+				for (int row = optRow + 1; row < M; row++) {
 					dp[row][end] = M;
 					if (dp[row - 1][end] != M) {
 						dp[row][end] = dp[row - 1][end] + 1;
@@ -151,6 +209,7 @@ public class Code01_DeleteMinCost {
 		char[] str1 = s1.toCharArray();
 		char[] str2 = s2.toCharArray();
 		HashMap<Character, ArrayList<Integer>> map1 = new HashMap<>();
+		//获取str1中每个字符出现的位置有哪些
 		for (int i = 0; i < str1.length; i++) {
 			ArrayList<Integer> list = map1.getOrDefault(str1[i], new ArrayList<Integer>());
 			list.add(i);
@@ -162,12 +221,18 @@ public class Code01_DeleteMinCost {
 		// 再次遍历str2一次，看存在对应str1中i后续连续子串可容纳的最长长度
 		for (int i = 0; i < str2.length; i++) {
 			if (map1.containsKey(str2[i])) {
+				//获取str2[i]在str1中的所有位置
 				ArrayList<Integer> keyList = map1.get(str2[i]);
 				for (int j = 0; j < keyList.size(); j++) {
+					//str2[i]一定和 keyList中的每一个位置对应的值相等
+					//str1下标
 					int cur1 = keyList.get(j) + 1;
+					//str2下标
 					int cur2 = i + 1;
 					int count = 1;
+					//遍历str2
 					for (int k = cur2; k < str2.length && cur1 < str1.length; k++) {
+						//相等的话str1的下标+1，继续下一个字符串比对
 						if (str2[k] == str1[cur1]) {
 							cur1++;
 							count++;

@@ -2,6 +2,12 @@ package class03;
 
 public class Code03_MinPathSum {
 
+	/**
+	 * 二维表 从[0][0] 到 [n][n] 最小路径
+	 * 二维表中每个元素的值表示的是到该位置的长度
+	 * 走的时候，只能向右或者向下走
+	 * com.sys.code.dynamic.Dynamic_MinPathOf2Table
+	 */
 	public static int minPathSum1(int[][] m) {
 		if (m == null || m.length == 0 || m[0] == null || m[0].length == 0) {
 			return 0;

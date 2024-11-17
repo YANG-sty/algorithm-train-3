@@ -6,6 +6,23 @@ import java.util.TreeMap;
 
 public class Code01_ChooseWork {
 
+	/**
+	 * 每种工作右难度和报酬
+	 * 给定一个job类型的数组jobarr,表示所有岗位，每个岗位都可以提供任意份工作
+	 * 选工作的标准是在难度不超过自身能力的情况下，选择报酬最高的岗位
+	 * 给定一个int类型的数组arr，表示所有人的能力
+	 * 返回int型的数组，表示每个人按照标准选工作后所能获得的最高报酬
+	 *
+	 * 方法：
+	 * 	1。工作按照难度排序
+	 * 	2。同样难度的工作，报酬从大到小排序
+	 * 	3。能力大，但是报酬低的删掉
+	 * 	4。能力相同，保留一个报酬最大的
+	 * 	5。构造有序表
+	 * 	6。遍历arr数组，依此查找小于等于人的能力的报酬
+	 *
+	 */
+
 	public static class Job {
 		public int money;
 		public int hard;
@@ -64,9 +81,9 @@ public class Code01_ChooseWork {
 		map.put(5, "我还是5");// (5, 我还是5)
 		
 		
-		System.out.println(map.containsKey(2));
-		System.out.println(map.get(7));
-		map.remove(9);
+//		System.out.println(map.containsKey(2));
+//		System.out.println(map.get(7));
+//		map.remove(9);
 		
 		
 		

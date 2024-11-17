@@ -6,6 +6,15 @@ import java.util.HashSet;
 
 public class Code03_PreAndInArrayToPosArray {
 
+	/**
+	 * 先序，中序 构建后序遍历
+	 * 方法：
+	 * 	1。先序遍历 左中右
+	 * 	2。中序遍历 中左右
+	 * 	3。后序遍历 左右中
+	 * 	4。中序遍历获取子树头节点，在先序遍历中分别获取左子树 和 右子树，将头节点放到后序遍历中
+	 * 	5。依此进行递归
+	 */
 	public static class Node {
 		public int value;
 		public Node left;
@@ -22,7 +31,9 @@ public class Code03_PreAndInArrayToPosArray {
 		}
 		int N = pre.length;
 		int[] pos = new int[N];
-		process1(pre, 0, N - 1, in, 0, N - 1, pos, 0, N - 1);
+		process1(pre, 0, N - 1,
+				in, 0, N - 1,
+				pos, 0, N - 1);
 		return pos;
 	}
 
@@ -46,8 +57,14 @@ public class Code03_PreAndInArrayToPosArray {
 			}
 		}
 		int leftSize = mid - L2;
-		process1(pre, L1 + 1, L1 + leftSize, in, L2, mid - 1, pos, L3, L3 + leftSize - 1);
-		process1(pre, L1 + leftSize + 1, R1, in, mid + 1, R2, pos, L3 + leftSize, R3 - 1);
+		//左树
+		process1(pre, L1 + 1, L1 + leftSize,
+				in, L2, mid - 1,
+				pos, L3, L3 + leftSize - 1);
+		//右树
+		process1(pre, L1 + leftSize + 1, R1,
+				in, mid + 1, R2,
+				pos, L3 + leftSize, R3 - 1);
 	}
 
 	public static int[] preInToPos2(int[] pre, int[] in) {

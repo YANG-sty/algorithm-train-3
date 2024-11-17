@@ -4,6 +4,28 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Code07_KthMinPair {
+	/**
+	 * 给定一个长度为N的整数数组arr，一定可以组成N^2个数值对；
+	 * 例如[3,1,2]，你需要将它们之间两两组合出来的数中第k小的组合找出来；
+	 * 排序规则为：先按照（x,y）x的大小进行排序，如果x相同，再按照y进行排序
+	 * 上面示例中数组的组合为:
+	 * (3,3),(3,1),(3,2),(1,3),(1,1),(1,2),(2,3,),(2,1),(2,2)
+	 * 排序之后:
+	 * (1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(3,1),(3,2),(3,3)
+	 * 如果要找出第3小的组合，那就是 (1,3)
+	 *
+	 * 数组可以存在重复的数值 {1,1,2,2,3,3,3,4,5,5}
+	 *
+	 *
+	 * 方法2：
+	 * 1。整体排序
+	 * 2。k-1/N 求出第一个数的索引
+	 * 3。<f的数据的个数 a， =f的数据的个数 b
+	 * 4。k-a*N -> s, s-1/b ->第二个数的索引
+	 *
+	 * 方法3：
+	 *
+	 */
 
 	public static class Pair {
 		public int x;
@@ -58,7 +80,11 @@ public class Code07_KthMinPair {
 		for (int i = 0; i < N && arr[i] <= fristNum; i++) {
 			if (arr[i] < fristNum) {
 				lessFristNumSize++;
-			} else {
+			}
+//			else {
+//				fristNumSize++;
+//			}
+			if (arr[i] == fristNum) {
 				fristNumSize++;
 			}
 		}
@@ -75,7 +101,9 @@ public class Code07_KthMinPair {
 		// 在无序数组中，找到第K小的数，返回值
 		// 第K小，以1作为开始
 		int fristNum = getMinKth(arr, (k - 1) / N);
+		// < fristNum 的个数，
 		int lessFristNumSize = 0;
+		// == fristNum 的个数
 		int fristNumSize = 0;
 		for (int i = 0; i < N; i++) {
 			if (arr[i] < fristNum) {
@@ -91,13 +119,17 @@ public class Code07_KthMinPair {
 
 	// 改写快排，时间复杂度O(N)
 	// 在无序数组arr中，找到，如果排序的话，arr[index]的数是什么？
+	//获取第k小的值， k这里表示的索引下标
 	public static int getMinKth(int[] arr, int index) {
 		int L = 0;
 		int R = arr.length - 1;
 		int pivot = 0;
 		int[] range = null;
 		while (L < R) {
+			//在L到R之间随机获取一个pivot
 			pivot = arr[L + (int) (Math.random() * (R - L + 1))];
+			//arr按照pivot 进行分组，小的放前面，大的放后面
+			//返回
 			range = partition(arr, L, R, pivot);
 			if (index < range[0]) {
 				R = range[0] - 1;
@@ -110,6 +142,11 @@ public class Code07_KthMinPair {
 		return arr[L];
 	}
 
+	/**
+	 * 荷兰国旗问题，
+	 * 将arr[L...R] 范围内的数，按照小于、等于、大于 pivot 分别放在一起，
+	 * 返回等于区域的起止位置
+	 */
 	public static int[] partition(int[] arr, int L, int R, int pivot) {
 		int less = L - 1;
 		int more = R + 1;
@@ -155,6 +192,15 @@ public class Code07_KthMinPair {
 
 	// 随机测试了百万组，保证三种方法都是对的
 	public static void main(String[] args) {
+
+//		int[] arr = {0, 1, 1, 2, 3, 4};
+//		int L = 0;
+//		int R = arr.length - 1;
+//		int pivot = 2;
+//		int[] partition = partition(arr, L, R, pivot);
+//		System.out.println(partition[0]);
+//		System.out.println(partition[1]);
+
 		int max = 100;
 		int len = 30;
 		int testTimes = 100000;

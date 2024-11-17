@@ -5,6 +5,10 @@ import java.util.Queue;
 
 public class Code02_BSTtoDoubleLinkedList {
 
+	/**
+	 * 双向链表节点结构和二叉树节点结构是一样的，如果你把last认为是left，next认为是next的话
+	 * 给定一棵二叉树的头节点，请转化成一条有序的双向链表，并返回链表的头节点，尾节点
+	 */
 	public static class Node {
 		public int value;
 		public Node left;

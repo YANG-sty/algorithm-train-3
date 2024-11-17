@@ -6,6 +6,17 @@ import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
 public class Code06_TopKTimes {
+	/**
+	 * 给定一个字符串数组String[] arr，给定一个正数K，词频不会存在相同的数据
+	 * 求出现次数最多的前K个字符串，并且按照出现次数从大到小排序。
+	 *
+	 * 方式1：暴力方式
+	 * 遍历数组，记录词频，放到大根堆，弹出前7个
+	 *
+	 * 方式2：
+	 * 小根堆初始化为K个，空间限制，如果arr长度很大减少内存空间
+	 *
+	 */
 
 	public static class Node {
 		public String str;

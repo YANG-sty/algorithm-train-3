@@ -2,6 +2,10 @@ package class03;
 
 public class Code05_LCSubstring {
 
+	/**
+	 * 最长公共子串
+	 * 空间压缩案例
+	 */
 	public static String lcst1(String str1, String str2) {
 		if (str1 == null || str2 == null || str1.equals("") || str2.equals("")) {
 			return "";
@@ -73,9 +77,12 @@ public class Code05_LCSubstring {
 				i++;
 				j++;
 			}
+			//固定s1从0开始, 让s2从最后面开始向前移动
 			if (col > 0) {
 				col--;
-			} else {
+			}
+			//固定s2从0开始，让s1从前向后移动
+			else {
 				row++;
 			}
 		}

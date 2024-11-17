@@ -2,6 +2,10 @@ package class04;
 
 public class Code06_SubArrayMaxSum {
 
+	/**
+	 * 给定一个数组arr，返回子数组的最大累加和
+	 * 子数组是连续的
+	 */
 	public static int maxSum(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;

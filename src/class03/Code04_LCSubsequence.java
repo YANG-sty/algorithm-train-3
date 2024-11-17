@@ -2,6 +2,10 @@ package class03;
 
 public class Code04_LCSubsequence {
 
+	/**
+	 * 最长公共子序列
+	 * com.sys.code.dynamic.Dynamic_LongestCommonSubsequence
+	 */
 	public static int lcs(String s1, String s2) {
 		char[] str1 = s1.toCharArray();
 		char[] str2 = s2.toCharArray();
@@ -74,11 +78,16 @@ public class Code04_LCSubsequence {
 		char[] res = new char[dp[m][n]];
 		int index = res.length - 1;
 		while (index >= 0) {
+			//子序列长度，没有增加，和左边的值一样
 			if (n > 0 && dp[m][n] == dp[m][n - 1]) {
 				n--;
-			} else if (m > 0 && dp[m][n] == dp[m - 1][n]) {
+			}
+			//子序列长度，没有增加，和上边的值一样
+			else if (m > 0 && dp[m][n] == dp[m - 1][n]) {
 				m--;
-			} else {
+			}
+			//子序列长度增加，和左上角的值一样 (m-1, n-1)
+			else {
 				res[index--] = chs1[m];
 				m--;
 				n--;

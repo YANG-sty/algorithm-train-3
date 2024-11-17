@@ -4,6 +4,26 @@ import java.util.TreeMap;
 
 public class Code01_GetFolderTree {
 
+	/**
+	 * 给定一个字符串数组，代表不同文件夹的绝对路径，
+	 * 把这些路径中蕴含的目录结构打印出来，子目录直接列在父目录下面，并比父目录向左进两个空格。
+	 * 同一级按照字典序排序
+	 * folderPaths ->  [   "a\b\c","a\b\s" , "a\d\e" ,"e\f\sty"     ]
+	 * a
+	 *   b
+	 *   	c
+	 *      s
+	 *   d
+	 *   	e
+	 *   f
+	 *   	sty
+	 *
+	 * 方法：
+	 * 	前缀树
+	 * 	深度优先遍历，递归，(level-1)*2个空格在前，打印节点
+	 *
+	 */
+
 	public static class Node {
 		// 上一个节点是通过哪条路，到我的
 		public String path;
@@ -73,9 +93,11 @@ public class Code01_GetFolderTree {
 
 		//  "a\b\c"    "\"    a,b,c
 		String[] arr = test.split("\\\\"); //    \\\\    \\   \
-		for(String str : arr) {
-			System.out.println(str);
-		}
+//		for(String str : arr) {
+//			System.out.println(str);
+//		}
+		String[] arr2 = new String[]{"a\\b\\c", "a\\b\\s", "a\\d\\e", "e\\f\\sty"};
+		print(arr2);
 	}
 
 }

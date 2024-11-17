@@ -2,6 +2,16 @@ package class03;
 
 public class Code02_SnacksWays {
 
+	/**
+	 * 背包容量w，
+	 * v[i] 表示第i个零食的体积 v[i]>0
+	 * 总体积不超过w的情况下
+	 * 一共右多少种放法？总体积0也是一种放法
+	 *
+	 * 方法1：
+	 * 	从左往右的经典模型，要/不要 v[i]
+	 */
+
 	public static int ways1(int[] arr, int w) {
 		// arr[0...]
 		return process(arr, 0, w);
@@ -35,11 +45,13 @@ public class Code02_SnacksWays {
 	public static int ways2(int[] arr, int w) {
 		int N = arr.length;
 		int[][] dp = new int[N + 1][w + 1];
+		//当到达最后一个零食的时候，如果体积大于等于0，则是一种可能性
 		for (int j = 0; j <= w; j++) {
 			dp[N][j] = 1;
 		}
 		for (int i = N - 1; i >= 0; i--) {
 			for (int j = 0; j <= w; j++) {
+				//j - arr[i] >= 0 表示能够装下零食，则要加上dp[i+1][j-arr[i]]
 				dp[i][j] = dp[i + 1][j] + ((j - arr[i] >= 0) ? dp[i + 1][j - arr[i]] : 0);
 			}
 		}

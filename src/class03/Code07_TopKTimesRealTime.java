@@ -3,6 +3,16 @@ package class03;
 import java.util.HashMap;
 
 public class Code07_TopKTimesRealTime {
+	/**
+	 * 构造TopKRecord数据结构
+	 * 1。指定大小，后序固定不变
+	 * 2。加入字符串，可重复加入
+	 * 3。返回之前加入的所有字符串中，词频最大的前K个
+	 *
+	 * 要求：
+	 * add方法，时间复杂度 O(logK)
+	 * top方法, 时间复杂度 O(K)
+	 */
 
 	public static class Node {
 		public String str;
@@ -133,15 +143,20 @@ public class Code07_TopKTimesRealTime {
 	}
 
 	public static void main(String[] args) {
-		TopKRecord record = new TopKRecord(2);
-		record.add("zuo");
+		TopKRecord record = new TopKRecord(3);
+		String[] arr1 = { "A", "B", "A", "C", "A", "C", "B", "B", "K" };
+		for (String str : arr1) {
+			record.add(str);
+		}
 		record.printTopK();
-		record.add("cheng");
-		record.add("cheng");
-		record.printTopK();
-		record.add("Yun");
-		record.add("Yun");
-		record.printTopK();
+//		record.add("zuo");
+//		record.printTopK();
+//		record.add("cheng");
+//		record.add("cheng");
+//		record.printTopK();
+//		record.add("Yun");
+//		record.add("Yun");
+//		record.printTopK();
 
 	}
 }

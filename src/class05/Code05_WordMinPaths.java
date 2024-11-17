@@ -9,20 +9,29 @@ import java.util.Queue;
 import java.util.Set;
 
 public class Code05_WordMinPaths {
+	/**
+	 * 图 ，
+	 * 深度优先遍历（每个节点到end节点的距离）
+	 * 广度优先遍历（获取start节点到end节点的所有路径）
+	 *
+	 * 方法1：
+	 * 		使用穷举的方式获取每个单词的可能性
+	 * 		O(N*K^2)
+	 */
 
 	public static List<List<String>> findMinPaths(
 			String start, 
 			String end,
 			List<String> list) {
 		list.add(start);
+		//获取邻居节点
 		HashMap<String, ArrayList<String>> nexts = getNexts(list);
+		//广度优先遍历 获取每个节点到end节点的距离
 		HashMap<String, Integer> distances = getDistances(start, nexts);
-		
-		
-		
-		
+
 		LinkedList<String> pathList = new LinkedList<>();
 		List<List<String>> res = new ArrayList<>();
+		//深度优先遍历，找到所有路径
 		getShortestPaths(start, end, nexts, distances, pathList, res);
 		return res;
 	}
@@ -36,6 +45,11 @@ public class Code05_WordMinPaths {
 		return nexts;
 	}
 
+	/**
+	 * 堆word 进行穷举，
+	 * word单词个数是有限个，每个单词的的可变范围是a~z，
+	 *
+	 */
 	private static ArrayList<String> getNext(String word, Set<String> dict) {
 		ArrayList<String> res = new ArrayList<String>();
 		char[] chs = word.toCharArray();
@@ -97,6 +111,7 @@ public class Code05_WordMinPaths {
 				}
 			}
 		}
+		//深度优先遍历，移除for循环里面添加的节点，继续处理后序的路径
 		path.pollLast();
 	}
 

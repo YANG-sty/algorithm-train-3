@@ -1,8 +1,12 @@
 package class05;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Code04_LeastRecentlyUsedCache {
+	/**
+	 * LRU 最近最少使用
+	 */
 
 	public static class Node<K, V> {
 		public K key;
@@ -83,6 +87,7 @@ public class Code04_LeastRecentlyUsedCache {
 	}
 
 	public static class MyCache<K, V> {
+		LinkedHashMap<K, Node<K, V>> map;
 		private HashMap<K, Node<K, V>> keyNodeMap;
 		private NodeDoubleLinkedList<K, V> nodeList;
 		private final int capacity;

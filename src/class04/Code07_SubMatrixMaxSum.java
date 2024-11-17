@@ -2,6 +2,13 @@ package class04;
 
 public class Code07_SubMatrixMaxSum {
 
+	/**
+	 * 给定一个整数型矩阵，返回子矩阵的最大累加和
+	 *
+	 * 方法：
+	 * 矩阵压缩，将矩阵压缩为一位数组，然后求子数组最大累加和
+	 */
+
 	public static int maxSum(int[][] m) {
 		if (m == null || m.length == 0 || m[0].length == 0) {
 			return 0;

@@ -2,6 +2,11 @@ package class05;
 
 public class Code03_CompleteTreeNodeNumber {
 
+	/**
+	 * 求完全二叉树节点个数
+	 * 时间复杂度低于 O(N)
+	 */
+
 	public static class Node {
 		public int value;
 		public Node left;

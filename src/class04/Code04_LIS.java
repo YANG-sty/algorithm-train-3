@@ -1,11 +1,18 @@
 package class04;
 
 public class Code04_LIS {
+	/**
+	 * 最长递增子序列（可以是不连续，但先后顺序要一样）
+	 * 方法：
+	 * 1。获取每个节点，后面有多少个小于arr[i]的数
+	 *
+	 */
 
 	public static int[] lis1(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return null;
 		}
+		//必须以i结尾，最长递归子序列的长度
 		int[] dp = getdp1(arr);
 		return generateLIS(arr, dp);
 	}
@@ -26,13 +33,16 @@ public class Code04_LIS {
 	public static int[] generateLIS(int[] arr, int[] dp) {
 		int len = 0;
 		int index = 0;
+		//获取最大的长度
 		for (int i = 0; i < dp.length; i++) {
 			if (dp[i] > len) {
 				len = dp[i];
 				index = i;
 			}
 		}
+		//递增子序列数组
 		int[] lis = new int[len];
+		//从后向前遍历，依次找到各个元素
 		lis[--len] = arr[index];
 		for (int i = index; i >= 0; i--) {
 			if (arr[i] < arr[index] && dp[i] == dp[index] - 1) {
@@ -52,7 +62,9 @@ public class Code04_LIS {
 	}
 
 	public static int[] getdp2(int[] arr) {
+		//必须以i结尾最长子序列的长度
 		int[] dp = new int[arr.length];
+		//找到的所有长度为i+1的递增子序列中最小结尾是什么值
 		int[] ends = new int[arr.length];
 		ends[0] = arr[0];
 		dp[0] = 1;
@@ -63,6 +75,8 @@ public class Code04_LIS {
 		for (int i = 1; i < arr.length; i++) {
 			l = 0;
 			r = right;
+			//ends是有序的数组
+			//找到大于等于arr[i],最左的位置
 			while (l <= r) {
 				m = (l + r) / 2;
 				if (arr[i] > ends[m]) {
@@ -71,9 +85,10 @@ public class Code04_LIS {
 					r = m - 1;
 				}
 			}
-			// l -> right+1
+			// 如果ends中没有大于等于arr[i]的数据，l -> right+1
 			right = Math.max(right, l);
 			ends[l] = arr[i];
+			//dp保存的是i位置最长子序列的长度，l是下标，计算长度的时候要+1
 			dp[i] = l + 1;
 		}
 		return dp;
